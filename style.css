@@ -1,0 +1,150 @@
+@import url("https://fonts.googleapis.com/css2?family=Red+Hat+Text:wght@400;500;700&display=swap");
+
+* {
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+}
+
+body {
+	font-size: 14px;
+	font-family: "Red Hat Text", sans-serif;
+	min-height: 100vh;
+	background: url("./images/bg-stars.svg") center center;
+	background-color: #1d1b26;
+	font-weight: 700;
+}
+
+img {
+	max-width: 100%;
+}
+
+.mountains-img {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	z-index: -1;
+}
+
+/* colors */
+
+.container {
+	width: 90%;
+	max-width: 700px;
+	margin: 0 auto;
+	min-height: 85vh;
+	border: 1px solid red;
+}
+
+.title {
+	margin: 10vh 0;
+	text-transform: uppercase;
+	text-align: center;
+	font-size: 1.7rem;
+	letter-spacing: 0.15em;
+	color: hsl(0, 0%, 100%);
+}
+
+.counter {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	border: 1px solid green;
+}
+
+.top,
+.bottom,
+.top-overlay {
+	width: 11em;
+	height: 5em;
+	background-color: #34364f;
+}
+
+.top-overlay {
+	background-color: rgba(29, 27, 38, 0.25);
+	/* background-color: red; */
+	position: relative;
+	border-bottom: 1px solid rgba(29, 27, 38, 0.1);
+	z-index: 1;
+}
+
+.number-parent {
+	position: relative;
+	overflow: hidden;
+	border-radius: 0.5em;
+	box-shadow: 0px 12px 2px 0px #181620;
+	/* box-shadow: 0px 11px 2px 0px #1a1a24; */
+}
+
+.number-parent::before {
+	color: #1d1b26;
+	content: "\2022";
+	font-size: 3rem;
+	position: absolute;
+	top: 50%;
+	left: -9px;
+	transform: translateY(-50%);
+}
+
+.number-parent::after {
+	color: #1d1b26;
+	content: "\2022";
+	font-size: 3rem;
+	position: absolute;
+	top: 50%;
+	right: -9px;
+	transform: translateY(-50%);
+}
+
+.number {
+	color: #fb6087;
+	font-size: 4.7rem;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
+.tag {
+	color: hsl(237, 18%, 59%);
+	text-transform: uppercase;
+	text-align: center;
+	margin-top: 2em;
+}
+
+.social-media > ul {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	list-style: none;
+	height: 10vh;
+	border: 1px solid blue;
+}
+
+.social-media > ul > li {
+	margin-right: 2em;
+}
+
+.social-media > ul > li:last-child {
+	margin-right: 0;
+}
+
+.social-media-icon path:hover {
+	fill: #fb6087;
+	transition: all 0.3s ease;
+}
+
+.attribution {
+	height: 5vh;
+	text-align: center;
+	padding: 0.7em 0;
+	color: hsl(237, 18%, 59%);
+	font-size: 0.7rem;
+	/* letter-spacing: 1px; */
+	font-weight: 500;
+	border: 1px solid red;
+}
+
+.attribution a {
+	color: hsl(237, 18%, 59%);
+}
