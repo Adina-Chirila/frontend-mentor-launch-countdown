@@ -13,6 +13,75 @@ body {
 	background: url("./images/bg-stars.svg") center center;
 	background-color: #1d1b26;
 	font-weight: 700;
+	position: relative;
+}
+.backdrop {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100vw;
+	height: 100vh;
+	background-color: rgba(29, 27, 38, 0.7);
+	z-index: 99;
+}
+
+.modal-form {
+	width: 90%;
+	max-width: 500px;
+	position: absolute;
+	background-color: rgb(52, 54, 79);
+	color: hsl(0, 0%, 100%);
+	padding: 2em 3em;
+	border-radius: 0.5em;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	z-index: 100;
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+}
+
+.modal-form h3 {
+	text-align: center;
+	padding: 0.5em 0;
+}
+
+.modal-form > div {
+	width: 100%;
+	border: 1px solid red;
+}
+
+label {
+	margin-top: 1.5em;
+	margin-bottom: 0.2em;
+}
+
+input {
+	padding: 0.5em 0.2em;
+	border-radius: 0.5em;
+	border: none;
+}
+
+input:focus {
+	outline: none;
+}
+
+.start-countdown-btn {
+	background-color: #fb6087;
+	color: hsl(0, 0%, 100%);
+	border: none;
+	padding: 0.8em 0;
+	margin-top: 3em;
+	font-weight: 700;
+	font-family: inherit;
+	font-size: 1rem;
+	border-radius: 0.5em;
+	cursor: pointer;
+}
+
+.start-countdown-btn:focus {
+	outline: none;
 }
 
 img {
@@ -26,18 +95,15 @@ img {
 	z-index: -1;
 }
 
-/* colors */
-
 .container {
 	width: 90%;
 	max-width: 700px;
 	margin: 0 auto;
-	min-height: 85vh;
-	border: 1px solid red;
+	height: 85vh;
 }
 
 .title {
-	margin: 10vh 0;
+	padding: 15vh 0;
 	text-transform: uppercase;
 	text-align: center;
 	font-size: 1.7rem;
@@ -45,38 +111,35 @@ img {
 	color: hsl(0, 0%, 100%);
 }
 
-.counter {
+.countdown {
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
-	border: 1px solid green;
 }
 
-.top,
-.bottom,
-.top-overlay {
+.card-top,
+.card-bottom,
+.card-top-overlay {
 	width: 11em;
 	height: 5em;
 	background-color: #34364f;
 }
 
-.top-overlay {
+.card-top-overlay {
 	background-color: rgba(29, 27, 38, 0.25);
-	/* background-color: red; */
 	position: relative;
 	border-bottom: 1px solid rgba(29, 27, 38, 0.1);
 	z-index: 1;
 }
 
-.number-parent {
+.card {
 	position: relative;
 	overflow: hidden;
 	border-radius: 0.5em;
 	box-shadow: 0px 12px 2px 0px #181620;
-	/* box-shadow: 0px 11px 2px 0px #1a1a24; */
 }
 
-.number-parent::before {
+.card::before {
 	color: #1d1b26;
 	content: "\2022";
 	font-size: 3rem;
@@ -86,7 +149,7 @@ img {
 	transform: translateY(-50%);
 }
 
-.number-parent::after {
+.card-parent::after {
 	color: #1d1b26;
 	content: "\2022";
 	font-size: 3rem;
@@ -105,32 +168,36 @@ img {
 	transform: translate(-50%, -50%);
 }
 
-.tag {
+.card-title {
 	color: hsl(237, 18%, 59%);
 	text-transform: uppercase;
 	text-align: center;
 	margin-top: 2em;
 }
 
-.social-media > ul {
+.social-media-nav > ul {
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	list-style: none;
 	height: 10vh;
-	border: 1px solid blue;
 }
 
-.social-media > ul > li {
+.social-media-nav > ul > li {
 	margin-right: 2em;
 }
 
-.social-media > ul > li:last-child {
+.social-media-nav > ul > li:last-child {
 	margin-right: 0;
 }
 
-.social-media-icon path:hover {
-	fill: #fb6087;
+.social-media-icon {
+	color: hsl(237, 18%, 59%);
+	font-size: 1.7rem;
+}
+
+.social-media-icon:hover {
+	color: #fb6087;
 	transition: all 0.3s ease;
 }
 
@@ -140,11 +207,53 @@ img {
 	padding: 0.7em 0;
 	color: hsl(237, 18%, 59%);
 	font-size: 0.7rem;
-	/* letter-spacing: 1px; */
 	font-weight: 500;
-	border: 1px solid red;
 }
 
 .attribution a {
 	color: hsl(237, 18%, 59%);
+}
+
+.attribution a:hover {
+	color: #fb6087;
+	transition: all 0.3s ease;
+}
+
+@media screen and (max-width: 800px) {
+	.title {
+		padding-top: 20vh;
+	}
+
+	.number {
+		font-size: 3.5rem;
+	}
+
+	.card-top,
+	.card-bottom,
+	.card-top-overlay {
+		width: 7.5em;
+		height: 3em;
+	}
+
+	.mountains-img {
+		min-height: 25vh;
+	}
+}
+
+@media screen and (max-width: 550px) {
+	.number {
+		font-size: 2rem;
+	}
+
+	.card-top,
+	.card-bottom,
+	.card-top-overlay {
+		width: 5em;
+		height: 2em;
+	}
+
+	.card-title {
+		font-size: 0.7rem;
+		font-weight: 500;
+	}
 }
