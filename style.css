@@ -15,6 +15,21 @@ body {
 	font-weight: 700;
 	position: relative;
 }
+
+.settings {
+	position: absolute;
+	top: 0.5em;
+	right: 0.5em;
+	color: hsl(237, 18%, 59%);
+	font-size: 1.7rem;
+	cursor: pointer;
+}
+
+.settings:hover {
+	color: #fb6087;
+	transition: all 0.3s ease;
+}
+
 .backdrop {
 	position: absolute;
 	top: 0;
