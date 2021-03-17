@@ -16,6 +16,8 @@
 			crossorigin="anonymous"
 		></script>
 		<script src="https://rawgit.com/moment/moment/2.2.1/min/moment.min.js"></script>
+		<script src="date-input-polyfill.dist.js" defer></script>
+		<script src="https://cdn.jsdelivr.net/npm/time-input-polyfill"></script>
 		<script src="script.js" defer></script>
 
 		<title>Frontend Mentor | Launch countdown timer</title>
@@ -29,7 +31,7 @@
 			<label for="date-input">DATE</label>
 			<input type="date" id="date-input" name="date" required />
 
-			<label for="time">TIME</label>
+			<label for="time-input">TIME</label>
 			<input type="time" id="time-input" name="time" required />
 
 			<button class="start-countdown-btn" type="submit">START COUNTDOWN</button>
@@ -88,15 +90,19 @@
 		<nav class="social-media-nav">
 			<ul>
 				<li>
-					<a href="#"
+					<a href="https://www.facebook.com"
 						><i class="fab fa-facebook-square social-media-icon"></i
 					></a>
 				</li>
 				<li>
-					<a href="#"><i class="fab fa-pinterest social-media-icon"></i></a>
+					<a href="https://pinterest.com/"
+						><i class="fab fa-pinterest social-media-icon"></i
+					></a>
 				</li>
 				<li>
-					<a href="#"><i class="fab fa-instagram social-media-icon"></i></a>
+					<a href="https://www.instagram.com/"
+						><i class="fab fa-instagram social-media-icon"></i
+					></a>
 				</li>
 			</ul>
 		</nav>
