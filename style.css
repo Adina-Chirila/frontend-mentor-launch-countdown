@@ -99,6 +99,10 @@ input:focus {
 	outline: none;
 }
 
+.start-countdown-btn:hover {
+	background-color: rgba(251, 96, 135, 0.8);
+}
+
 img {
 	max-width: 100%;
 }
@@ -270,5 +274,11 @@ img {
 	.card-title {
 		font-size: 0.7rem;
 		font-weight: 500;
+	}
+}
+
+@media screen and (max-width: 450px) {
+	.modal-form {
+		padding: 2em 1.5em;
 	}
 }
