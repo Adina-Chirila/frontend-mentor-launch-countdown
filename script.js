@@ -24,7 +24,8 @@ const setDateAndTimeInputs = () => {
 	const now = moment();
 	dateInput.value = now.add(1, "d").format("YYYY-MM-DD");
 	dateInput.setAttribute("min", now.format("YYYY-MM-DD"));
-	dateInput.setAttribute("max", now.endOf("month").format("YYYY-MM-DD"));
+	// dateInput.setAttribute("max", now.endOf("month").format("YYYY-MM-DD"));
+	dateInput.setAttribute("max", now.add(3, "months").format("YYYY-MM-DD"));
 
 	timeInput.value = moment().format("HH:mm");
 };
@@ -60,18 +61,26 @@ const manageCountdownDisplay = (display, titleText) => {
 
 const calculatePeriodLeft = () => {
 	const now = moment();
+	console.log(moment());
 	const launch = setLaunch();
+	console.log(launch);
 
 	const duration = moment.duration(launch.diff(now));
+	console.log(duration);
 	if (duration < 0) {
 		manageCountdownDisplay("none", "LAUNCH IS OVER!");
 		return;
 	}
 
-	const daysLeft = duration.days();
+	const daysLeft = launch.diff(now, "days");
 	const hoursLeft = duration.hours();
 	const minsLeft = duration.minutes();
 	const secsLeft = duration.seconds();
+
+	// const daysLeft = duration.days();
+	// const hoursLeft = launch.diff(now, "hours");
+	// const minsLeft = launch.diff(now, "minutes");
+	// const secsLeft = launch.diff(now, "seconds");
 
 	updateCountdown(daysLeft, hoursLeft, minsLeft, secsLeft);
 };
