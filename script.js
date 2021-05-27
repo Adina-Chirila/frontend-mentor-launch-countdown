@@ -9,6 +9,8 @@ const settingsBtn = document.querySelector(".settings");
 const dateInput = document.querySelector("#date-input");
 const timeInput = document.querySelector("#time-input");
 
+let duration;
+
 const setLaunch = () => {
 	const launchDate = dateInput.value;
 	const launchTime = timeInput.value;
@@ -23,6 +25,7 @@ const setDateAndTimeInputs = () => {
 
 	const now = moment();
 	dateInput.value = now.add(1, "d").format("YYYY-MM-DD");
+	// dateInput.value = now.format("YYYY-MM-DD");
 	dateInput.setAttribute("min", now.format("YYYY-MM-DD"));
 
 	dateInput.setAttribute("max", now.add(3, "months").format("YYYY-MM-DD"));
@@ -57,13 +60,18 @@ const manageCountdownDisplay = (display, titleText) => {
 	countdown.style.display = display;
 	const title = document.querySelector(".title");
 	title.innerText = titleText;
+	if (display === "none") {
+		title.classList.add("launch-over");
+	} else {
+		title.classList.remove("launch-over");
+	}
 };
 
 //to rename this function
 const intermediateFunction = (launch) => {
 	const now = moment();
 
-	const duration = moment.duration(launch.diff(now));
+	duration = moment.duration(launch.diff(now));
 	if (duration < 0) {
 		manageCountdownDisplay("none", "LAUNCH IS OVER!");
 		return;
@@ -76,13 +84,13 @@ const intermediateFunction = (launch) => {
 };
 
 const calculatePeriodLeft = () => {
-	if (localStorage.getItem("launchDate") !== null) {
-		const localLaunch = moment(localStorage.getItem("launchDate"));
-		intermediateFunction(localLaunch);
+	const localLaunch = localStorage.getItem("launchDate");
+	const launch = setLaunch();
+
+	if (localLaunch) {
+		intermediateFunction(moment(localLaunch));
 	} else {
-		const launch = setLaunch();
 		intermediateFunction(launch);
-		saveLocalLaunch(launch);
 	}
 };
 
@@ -108,22 +116,26 @@ const saveLocalLaunch = (launch) => {
 };
 
 document.addEventListener("DOMContentLoaded", () => {
+	setDateAndTimeInputs();
 	if (localStorage.getItem("launchDate") !== null) {
 		console.log("item in local storage");
 		handleModalAndBackdrop("none");
 		calculatePeriodLeft();
+		//stop setinterval using clearinterval when launch is ended
 		setInterval(calculatePeriodLeft, 1000);
+	} else {
+		updateCountdown("0", "0", "0", "0");
 	}
-	updateCountdown("0", "0", "0", "0");
-	setDateAndTimeInputs();
 });
 
 startCountdownBtn.addEventListener("click", (e) => {
 	e.preventDefault();
-	handleModalAndBackdrop("none");
 	calculatePeriodLeft();
+	handleModalAndBackdrop("none");
 	manageCountdownDisplay("flex", "WE'RE LAUNCHING SOON");
 	setInterval(calculatePeriodLeft, 1000);
+	const launch = setLaunch();
+	saveLocalLaunch(launch);
 });
 
 settingsBtn.addEventListener("click", () => {

@@ -130,6 +130,12 @@ img {
 	color: hsl(0, 0%, 100%);
 }
 
+.title.launch-over {
+	font-size: 4rem;
+	padding-top: 2em;
+	height: 80vh;
+}
+
 .countdown {
 	display: flex;
 	align-items: center;
