@@ -24,8 +24,8 @@ const setDateAndTimeInputs = () => {
 	const timeInput = document.querySelector("#time-input");
 
 	const now = moment();
-	dateInput.value = now.add(1, "d").format("YYYY-MM-DD");
-	// dateInput.value = now.format("YYYY-MM-DD");
+	// dateInput.value = now.add(1, "d").format("YYYY-MM-DD");
+	dateInput.value = now.format("YYYY-MM-DD");
 	dateInput.setAttribute("min", now.format("YYYY-MM-DD"));
 
 	dateInput.setAttribute("max", now.add(3, "months").format("YYYY-MM-DD"));
@@ -67,8 +67,7 @@ const manageCountdownDisplay = (display, titleText) => {
 	}
 };
 
-//to rename this function
-const intermediateFunction = (launch) => {
+const calculateDiff = (launch) => {
 	const now = moment();
 
 	duration = moment.duration(launch.diff(now));
@@ -88,41 +87,33 @@ const calculatePeriodLeft = () => {
 	const launch = setLaunch();
 
 	if (localLaunch) {
-		intermediateFunction(moment(localLaunch));
+		calculateDiff(moment(localLaunch));
 	} else {
-		intermediateFunction(launch);
+		calculateDiff(launch);
 	}
 };
-
-//good function here!!!
-// const calculatePeriodLeft = () => {
-// const now = moment();
-// const launch = setLaunch();
-// saveLocalLaunch(launch);
-// const duration = moment.duration(launch.diff(now));
-// if (duration < 0) {
-// 	manageCountdownDisplay("none", "LAUNCH IS OVER!");
-// 	return;
-// }
-// const daysLeft = launch.diff(now, "days");
-// const hoursLeft = duration.hours();
-// const minsLeft = duration.minutes();
-// const secsLeft = duration.seconds();
-// updateCountdown(daysLeft, hoursLeft, minsLeft, secsLeft);
-// };
 
 const saveLocalLaunch = (launch) => {
 	localStorage.setItem("launchDate", launch);
 };
 
+const CountDownInterval = () => {
+	//initial setup
+	calculatePeriodLeft();
+	setInterval(() => {
+		//stop setinterval using clearinterval when launch is ended
+		if (duration <= 0) {
+			clearInterval((duration = 0));
+		}
+		calculatePeriodLeft();
+	}, 1000);
+};
+
 document.addEventListener("DOMContentLoaded", () => {
 	setDateAndTimeInputs();
 	if (localStorage.getItem("launchDate") !== null) {
-		console.log("item in local storage");
 		handleModalAndBackdrop("none");
-		calculatePeriodLeft();
-		//stop setinterval using clearinterval when launch is ended
-		setInterval(calculatePeriodLeft, 1000);
+		CountDownInterval();
 	} else {
 		updateCountdown("0", "0", "0", "0");
 	}
@@ -130,10 +121,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
 startCountdownBtn.addEventListener("click", (e) => {
 	e.preventDefault();
-	calculatePeriodLeft();
+	CountDownInterval();
 	handleModalAndBackdrop("none");
 	manageCountdownDisplay("flex", "WE'RE LAUNCHING SOON");
-	setInterval(calculatePeriodLeft, 1000);
+
 	const launch = setLaunch();
 	saveLocalLaunch(launch);
 });
