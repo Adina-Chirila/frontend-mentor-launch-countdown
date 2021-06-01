@@ -15,7 +15,6 @@ const setLaunch = () => {
 	const launchDate = dateInput.value;
 	const launchTime = timeInput.value;
 	const launch = moment(`${launchDate} ${launchTime}`);
-
 	return launch;
 };
 
@@ -24,12 +23,10 @@ const setDateAndTimeInputs = () => {
 	const timeInput = document.querySelector("#time-input");
 
 	const now = moment();
-	// dateInput.value = now.add(1, "d").format("YYYY-MM-DD");
-	dateInput.value = now.format("YYYY-MM-DD");
+	dateInput.value = now.add(1, "d").format("YYYY-MM-DD");
+	// dateInput.value = now.format("YYYY-MM-DD");
 	dateInput.setAttribute("min", now.format("YYYY-MM-DD"));
-
 	dateInput.setAttribute("max", now.add(3, "months").format("YYYY-MM-DD"));
-
 	timeInput.value = moment().format("HH:mm");
 };
 
@@ -98,14 +95,14 @@ const saveLocalLaunch = (launch) => {
 };
 
 const CountDownInterval = () => {
-	//initial setup
 	calculatePeriodLeft();
-	setInterval(() => {
-		//stop setinterval using clearinterval when launch is ended
+
+	const interval = setInterval(() => {
 		if (duration <= 0) {
-			clearInterval((duration = 0));
+			clearInterval(interval);
+		} else {
+			calculatePeriodLeft();
 		}
-		calculatePeriodLeft();
 	}, 1000);
 };
 
@@ -121,12 +118,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
 startCountdownBtn.addEventListener("click", (e) => {
 	e.preventDefault();
-	CountDownInterval();
-	handleModalAndBackdrop("none");
-	manageCountdownDisplay("flex", "WE'RE LAUNCHING SOON");
 
 	const launch = setLaunch();
 	saveLocalLaunch(launch);
+
+	CountDownInterval();
+	handleModalAndBackdrop("none");
+	manageCountdownDisplay("flex", "WE'RE LAUNCHING SOON");
 });
 
 settingsBtn.addEventListener("click", () => {
